@@ -124,17 +124,16 @@ public class Interval {
 
     @Override
     public String toString() {
-        //TODO: += -> = +
         if (doubleJednaki(pocetnaTacka, 0.) && doubleJednaki(krajnjaTacka, 0.) && !ukljucenaKrajnja && !ukljucenaPocetna) return "()";
 
         String ret = "";
-        if (ukljucenaPocetna) ret += "[";
-        else ret += "(";
+        if (ukljucenaPocetna) ret = ret + "[";
+        else ret = ret + "(";
 
-        ret += pocetnaTacka + "," + krajnjaTacka;
+        ret = ret + pocetnaTacka + "," + krajnjaTacka;
 
-        if (ukljucenaKrajnja) ret += "]";
-        else ret += ")";
+        if (ukljucenaKrajnja) ret = ret + "]";
+        else ret = ret + ")";
 
         return ret;
     }
