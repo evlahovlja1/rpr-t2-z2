@@ -31,7 +31,10 @@ public class Interval {
     }
 
     public boolean isIn(double tacka) {
-        return tacka >= pocetnaTacka && tacka <= krajnjaTacka;
+        if (tacka > pocetnaTacka && tacka < krajnjaTacka) return true;
+        else if (doubleJednaki(tacka, pocetnaTacka) && ukljucenaPocetna) return true;
+        else if (doubleJednaki(tacka, krajnjaTacka) && ukljucenaKrajnja) return true;
+        return false;
     }
 
     public Interval intersect(Interval i) {
@@ -122,6 +125,8 @@ public class Interval {
     @Override
     public String toString() {
         //TODO: += -> = +
+        if (doubleJednaki(pocetnaTacka, 0.) && doubleJednaki(krajnjaTacka, 0.) && !ukljucenaKrajnja && !ukljucenaPocetna) return "()";
+
         String ret = "";
         if (ukljucenaPocetna) ret += "[";
         else ret += "(";
