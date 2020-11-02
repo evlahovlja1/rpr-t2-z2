@@ -38,45 +38,7 @@ public class Interval {
     }
 
     public Interval intersect(Interval i) {
-        Interval ret = new Interval();
-
-        if (krajnjaTacka < i.pocetnaTacka || pocetnaTacka > i.krajnjaTacka) return null;
-
-        if (pocetnaTacka > i.pocetnaTacka) {
-            ret.pocetnaTacka = pocetnaTacka;
-            ret.ukljucenaPocetna = ukljucenaPocetna;
-        }
-        else if (pocetnaTacka < i.pocetnaTacka) {
-            ret.pocetnaTacka = i.pocetnaTacka;
-            ret.ukljucenaPocetna = i.ukljucenaPocetna;
-        }
-        else if (doubleJednaki(pocetnaTacka, i.pocetnaTacka)) {
-            if (ukljucenaPocetna && i.ukljucenaPocetna) {
-                ret.ukljucenaPocetna = true;
-            }
-            else {
-                ret.ukljucenaPocetna = false;
-            }
-        }
-
-        if (krajnjaTacka < i.krajnjaTacka) {
-            ret.krajnjaTacka = krajnjaTacka;
-            ret.ukljucenaKrajnja = ukljucenaKrajnja;
-        }
-        else if (krajnjaTacka > i.krajnjaTacka) {
-            ret.krajnjaTacka = i.krajnjaTacka;
-            ret.ukljucenaKrajnja = i.ukljucenaKrajnja;
-        }
-        else if (doubleJednaki(krajnjaTacka, i.krajnjaTacka)) {
-            if (ukljucenaKrajnja && i.ukljucenaKrajnja) {
-                ret.ukljucenaKrajnja = true;
-            }
-            else {
-                ret.ukljucenaKrajnja = false;
-            }
-        }
-
-        return ret;
+        return Interval.intersect(this, i);
     }
 
     public static Interval intersect(Interval i1, Interval i2) {
