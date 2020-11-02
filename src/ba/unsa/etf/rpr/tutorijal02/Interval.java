@@ -17,7 +17,7 @@ public class Interval {
         }
         pocetnaTacka = _pocetnaTacka;
         krajnjaTacka = _krajnjaTacka;
-        ukljucenaKrajnja = _ukljucenaPocetna;
+        ukljucenaPocetna = _ukljucenaPocetna;
         ukljucenaKrajnja = _ukljucenaKrajnja;
     }
 
@@ -123,13 +123,13 @@ public class Interval {
     public String toString() {
         //TODO: += -> = +
         String ret = "";
-        if (ukljucenaPocetna) ret += '[';
-        else ret += '(';
+        if (ukljucenaPocetna) ret += "[";
+        else ret += "(";
 
-        ret += pocetnaTacka + ',' + krajnjaTacka;
+        ret += pocetnaTacka + "," + krajnjaTacka;
 
-        if (ukljucenaKrajnja) ret += ']';
-        else ret += ')';
+        if (ukljucenaKrajnja) ret += "]";
+        else ret += ")";
 
         return ret;
     }
