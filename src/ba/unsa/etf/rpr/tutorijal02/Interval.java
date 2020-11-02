@@ -37,15 +37,34 @@ public class Interval {
     public Interval intersect(Interval i) {
         Interval ret = new Interval();
 
-        //iste tacke
-        if (doubleJednaki(pocetnaTacka, i.pocetnaTacka) && doubleJednaki(krajnjaTacka, i.krajnjaTacka)) {
+        if (krajnjaTacka < i.pocetnaTacka || pocetnaTacka > i.krajnjaTacka) return null;
+
+        if (pocetnaTacka > i.pocetnaTacka) {
+            ret.pocetnaTacka = pocetnaTacka;
+            ret.ukljucenaPocetna = ukljucenaPocetna;
+        }
+        else if (pocetnaTacka < i.pocetnaTacka) {
+            ret.pocetnaTacka = i.pocetnaTacka;
+            ret.ukljucenaPocetna = i.ukljucenaPocetna;
+        }
+        else if (doubleJednaki(pocetnaTacka, i.pocetnaTacka)) {
             if (ukljucenaPocetna && i.ukljucenaPocetna) {
                 ret.ukljucenaPocetna = true;
             }
             else {
                 ret.ukljucenaPocetna = false;
             }
+        }
 
+        if (krajnjaTacka < i.krajnjaTacka) {
+            ret.krajnjaTacka = krajnjaTacka;
+            ret.ukljucenaKrajnja = ukljucenaKrajnja;
+        }
+        else if (krajnjaTacka > i.krajnjaTacka) {
+            ret.krajnjaTacka = i.krajnjaTacka;
+            ret.ukljucenaKrajnja = i.ukljucenaKrajnja;
+        }
+        else if (doubleJednaki(krajnjaTacka, i.krajnjaTacka)) {
             if (ukljucenaKrajnja && i.ukljucenaKrajnja) {
                 ret.ukljucenaKrajnja = true;
             }
@@ -53,31 +72,75 @@ public class Interval {
                 ret.ukljucenaKrajnja = false;
             }
         }
-        //samo pocetna tacka ista
-        else if (doubleJednaki(pocetnaTacka, i.pocetnaTacka)) {
-            if (krajnjaTacka < i.krajnjaTacka) {
-                ret.krajnjaTacka = krajnjaTacka;
-                ret.ukljucenaKrajnja = ukljucenaKrajnja;
-            }
-            else {
-                ret.krajnjaTacka = i.krajnjaTacka;
-                ret.ukljucenaKrajnja = i.ukljucenaKrajnja;
-            }
-        }
-        //samo krajnja tacka ista
-        else if (doubleJednaki(krajnjaTacka, i.krajnjaTacka)) {
-            if (pocetnaTacka > i.pocetnaTacka) {
-                ret.pocetnaTacka = pocetnaTacka;
-                ret.ukljucenaPocetna = ukljucenaPocetna;
-            }
-            else {
-                ret.pocetnaTacka = i.pocetnaTacka;
-                ret.ukljucenaPocetna = i.ukljucenaPocetna;
-            }
-        }
-        //izvorni interval potpuno unutar i (argumenta metode)
 
-
+        return ret;
     }
 
+    public static Interval intersect(Interval i1, Interval i2) {
+        Interval ret = new Interval();
+
+        if (i1.krajnjaTacka < i2.pocetnaTacka || i1.pocetnaTacka > i2.krajnjaTacka) return null;
+
+        if (i1.pocetnaTacka > i2.pocetnaTacka) {
+            ret.pocetnaTacka = i1.pocetnaTacka;
+            ret.ukljucenaPocetna = i1.ukljucenaPocetna;
+        }
+        else if (i1.pocetnaTacka < i2.pocetnaTacka) {
+            ret.pocetnaTacka = i2.pocetnaTacka;
+            ret.ukljucenaPocetna = i2.ukljucenaPocetna;
+        }
+        else if (doubleJednaki(i1.pocetnaTacka, i2.pocetnaTacka)) {
+            if (i1.ukljucenaPocetna && i2.ukljucenaPocetna) {
+                ret.ukljucenaPocetna = true;
+            }
+            else {
+                ret.ukljucenaPocetna = false;
+            }
+        }
+
+        if (i1.krajnjaTacka < i2.krajnjaTacka) {
+            ret.krajnjaTacka = i1.krajnjaTacka;
+            ret.ukljucenaKrajnja = i1.ukljucenaKrajnja;
+        }
+        else if (i1.krajnjaTacka > i2.krajnjaTacka) {
+            ret.krajnjaTacka = i2.krajnjaTacka;
+            ret.ukljucenaKrajnja = i2.ukljucenaKrajnja;
+        }
+        else if (doubleJednaki(i1.krajnjaTacka, i2.krajnjaTacka)) {
+            if (i1.ukljucenaKrajnja && i2.ukljucenaKrajnja) {
+                ret.ukljucenaKrajnja = true;
+            }
+            else {
+                ret.ukljucenaKrajnja = false;
+            }
+        }
+
+        return ret;
+    }
+
+
+    @Override
+    public String toString() {
+        //TODO: += -> = +
+        String ret = "";
+        if (ukljucenaPocetna) ret += '[';
+        else ret += '(';
+
+        ret += pocetnaTacka + ',' + krajnjaTacka;
+
+        if (ukljucenaKrajnja) ret += ']';
+        else ret += ')';
+
+        return ret;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Interval i = (Interval) obj;
+
+        return (doubleJednaki(pocetnaTacka, i.pocetnaTacka) &&
+                doubleJednaki(krajnjaTacka, i.krajnjaTacka) &&
+                ukljucenaPocetna == i.ukljucenaPocetna &&
+                ukljucenaKrajnja == i.ukljucenaKrajnja);
+    }
 }
