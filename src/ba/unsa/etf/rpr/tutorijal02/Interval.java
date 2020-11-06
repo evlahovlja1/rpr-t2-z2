@@ -4,6 +4,8 @@ public class Interval {
     private double pocetnaTacka, krajnjaTacka;
     private boolean ukljucenaPocetna, ukljucenaKrajnja;
 
+    //test kredencijala
+
     Interval() {
         pocetnaTacka = 0;
         krajnjaTacka = 0;
